@@ -1,0 +1,6 @@
+#Load Environment
+source ../../environment_nvidia
+
+#DSBOARD_NX2 for Jetson Nano
+make ARCH=arm64 O=/home/nvidia/kernel_out_dsboard_nx2_nano tegra_defconfig
+make ARCH=arm64 O=/home/nvidia/kernel_out_dsboard_nx2_nano -j
