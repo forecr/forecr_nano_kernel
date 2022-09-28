@@ -1,0 +1,22 @@
+
+#include "porg-platforms/tegra210-porg-pinmux-p3448-0002-b00.dtsi"
+
+/ {
+	/* Disable Debug-RX lane */
+	pinmux@700008d4 {
+		common {
+			/delete-node/ uart1_rx_pu1;
+		};
+
+		unused_lowpower {
+			uart1_rx_pu1 {
+				nvidia,pins = "uart1_rx_pu1";
+				nvidia,function = "rsvd1";
+				nvidia,pull = <TEGRA_PIN_PULL_DOWN>;
+				nvidia,tristate = <TEGRA_PIN_ENABLE>;
+				nvidia,enable-input = <TEGRA_PIN_DISABLE>;
+			};
+		};
+	};
+
+};
