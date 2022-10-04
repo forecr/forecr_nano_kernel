@@ -1,0 +1,80 @@
+
+#include "porg-platforms/tegra210-porg-pinmux-p3448-0002-b00.dtsi"
+#include "porg-platforms/tegra210-porg-gpio-p3448-0002-b00.dtsi"
+
+/ {
+	/* Remove C-0,1,2,3 pins */
+	gpio@6000d000 {
+		default {
+			gpio-input = <
+				TEGRA_GPIO(BB, 0)
+				TEGRA_GPIO(B, 4)
+				TEGRA_GPIO(B, 5)
+				TEGRA_GPIO(B, 6)
+				TEGRA_GPIO(B, 7)
+				TEGRA_GPIO(DD, 0)
+				TEGRA_GPIO(E, 6)
+				TEGRA_GPIO(S, 5)
+				TEGRA_GPIO(A, 5)
+				TEGRA_GPIO(X, 4)
+				TEGRA_GPIO(X, 5)
+				TEGRA_GPIO(X, 6)
+				TEGRA_GPIO(Y, 1)
+				TEGRA_GPIO(Y, 2)
+				TEGRA_GPIO(V, 0)
+				TEGRA_GPIO(V, 1)
+				TEGRA_GPIO(Z, 0)
+				TEGRA_GPIO(Z, 2)
+				TEGRA_GPIO(J, 5)
+				TEGRA_GPIO(J, 6)
+				TEGRA_GPIO(J, 4)
+				TEGRA_GPIO(J, 7)
+				TEGRA_GPIO(G, 2)
+				TEGRA_GPIO(G, 3)
+				TEGRA_GPIO(C, 4)
+				TEGRA_GPIO(H, 2)
+				TEGRA_GPIO(H, 5)
+				TEGRA_GPIO(H, 6)
+				TEGRA_GPIO(CC, 4)
+				>;
+		};
+	};
+
+	/* Enable SPI lane */
+	pinmux@700008d4 {
+		common {
+			spi1_mosi_pc0 {
+				nvidia,pins = "spi1_mosi_pc0";
+				nvidia,function = "spi1";
+				nvidia,pull = <TEGRA_PIN_PULL_DOWN>;
+				nvidia,tristate = <TEGRA_PIN_DISABLE>;
+				nvidia,enable-input = <TEGRA_PIN_ENABLE>;
+			};
+
+			spi1_miso_pc1 {
+				nvidia,pins = "spi1_miso_pc1";
+				nvidia,function = "spi1";
+				nvidia,pull = <TEGRA_PIN_PULL_DOWN>;
+				nvidia,tristate = <TEGRA_PIN_DISABLE>;
+				nvidia,enable-input = <TEGRA_PIN_ENABLE>;
+			};
+
+			spi1_sck_pc2 {
+				nvidia,pins = "spi1_sck_pc2";
+				nvidia,function = "spi1";
+				nvidia,pull = <TEGRA_PIN_PULL_DOWN>;
+				nvidia,tristate = <TEGRA_PIN_DISABLE>;
+				nvidia,enable-input = <TEGRA_PIN_ENABLE>;
+			};
+
+			spi1_cs0_pc3 {
+				nvidia,pins = "spi1_cs0_pc3";
+				nvidia,function = "spi1";
+				nvidia,pull = <TEGRA_PIN_PULL_UP>;
+				nvidia,tristate = <TEGRA_PIN_DISABLE>;
+				nvidia,enable-input = <TEGRA_PIN_DISABLE>;
+			};
+		};
+	};
+
+};
