@@ -1,0 +1,198 @@
+/*
+ * arch/arm64/boot/dts/tegra210-p3448-0002-p3449-0000-b00.dts
+ *
+ * Copyright (c) 2018-2021, NVIDIA CORPORATION.  All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 2 of the License.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ *
+ */
+
+#include "tegra210-porg-p3448-common.dtsi"
+#include "porg-platforms/tegra210-porg-camera-rbpcv3-dual-imx477.dtsi"
+#include "porg-platforms/tegra210-porg-camera-rbpcv2-dual-imx219.dtsi"
+#include "porg-platforms/tegra210-porg-pinmux-p3448-0002-b00.dtsi"
+#include "porg-platforms/tegra210-porg-gpio-p3448-0002-b00.dtsi"
+#include "porg-platforms/tegra210-porg-p3448-emc-a00.dtsi"
+#include "tegra210-disable-debug-rx.dtsi"
+#include "tegra210-enable-spi.dtsi"
+
+#define FORECR_CAM_I2C_MUX TEGRA_GPIO(Z, 0) // GPIO11
+
+/ {
+	model = "Jetson Nano for DSBOARD-NX2 (rev-1.22)";
+	compatible ="nvidia,p3449-0000-b00+p3448-0002-b00", "nvidia,jetson-nano", "nvidia,tegra210";
+	nvidia,dtsfilename = __FILE__;
+
+	sdhci@700b0600 { /* SDMMC4 for EMMC */
+		status = "okay";
+	};
+
+	sdhci@700b0400 {
+		status = "okay";
+		/delete-property/ keep-power-in-suspend;
+		/delete-property/ non-removable;
+		nvidia,vmmc-always-on;
+	};
+
+	sdhci@700b0000 { /* SDMMC1 for SD card */
+		status = "disabled";
+	};
+
+	spi@70410000 { /* QSPI */
+		status = "disabled";
+	};
+	
+	hdr40_i2c1: i2c@7000c400 {
+		pcf8574a: gpio@38 {
+			compatible = "nxp,pcf8574a";
+			reg = <0x38>;
+			gpio-controller;
+			#gpio-cells = <2>;
+		};
+
+	};
+
+	cam_i2cmux {
+		mux-gpios = <&gpio FORECR_CAM_I2C_MUX GPIO_ACTIVE_HIGH>;
+		
+		i2c_0: i2c@0 {
+			imx477_cam0: rbpcv3_imx477_a@1a {
+			status = "okay";
+			};
+			imx219_cam0: rbpcv2_imx219_a@10 {
+				status = "disabled";
+			};
+		};
+		i2c_1: i2c@1 {
+				imx477_cam1: rbpcv3_imx477_e@1a {
+				status = "okay";
+				};
+				imx219_cam1: rbpcv2_imx219_e@10 {
+					status = "disabled";
+				};
+		};
+	};
+	tcp: tegra-camera-platform {
+		modules {
+			cam_module0: module0 {
+				status = "okay";
+				badge = "porg_front_RBPCV3";
+				position = "front";
+				orientation = "1";
+				cam_module0_drivernode0: drivernode0 {
+					pcl_id = "v4l2_sensor";
+					devname = "imx477 7-001a";
+					proc-device-tree = "/proc/device-tree/cam_i2cmux/i2c@0/rbpcv3_imx477_a@1a";
+				};
+			};
+			cam_module1: module1 {
+				status = "okay";
+				badge = "porg_rear_RBPCV3";
+				position = "rear";
+				orientation = "1";
+				cam_module1_drivernode0: drivernode0 {
+					status = "okay";
+					pcl_id = "v4l2_sensor";
+					devname = "imx477 8-001a";
+					proc-device-tree = "/proc/device-tree/cam_i2cmux/i2c@1/rbpcv3_imx477_e@1a";
+				};
+			};
+		};
+	};
+	host1x {
+		vi_base: vi {
+			ports {
+				vi_port0: port@0 {
+					rbpcv3_imx477_vi_in0: endpoint {
+						status = "okay";
+						port-index = <0>;
+						bus-width = <2>;
+						remote-endpoint = <&rbpcv3_imx477_csi_out0>;
+					};
+				};
+				vi_port1: port@1 {
+					rbpcv3_imx477_vi_in1: endpoint {
+						status = "okay";
+						port-index = <4>;
+						bus-width = <2>;
+						remote-endpoint = <&rbpcv3_imx477_csi_out1>;
+					};
+				};
+			};
+		};
+		csi_base: nvcsi {
+			csi_chan0: channel@0 {
+				ports {
+					csi_chan0_port0: port@0 {
+						rbpcv3_imx477_csi_in0: endpoint@0 {
+							status = "okay";
+							port-index = <0>;
+							bus-width = <2>;
+							remote-endpoint = <&rbpcv3_imx477_dual_out0>;
+						};
+					};
+					csi_chan0_port1: port@1 {
+						rbpcv3_imx477_csi_out0: endpoint@1 {
+							status = "okay";
+						};
+					};
+				};
+			};
+			csi_chan1: channel@1 {
+				ports {
+					csi_chan1_port0: port@2 {
+						rbpcv3_imx477_csi_in1: endpoint@2 {
+							status = "okay";
+							port-index = <4>;
+							bus-width = <2>;
+							remote-endpoint = <&rbpcv3_imx477_out1>;
+						};
+					};
+					csi_chan1_port1: port@3 {
+						rbpcv3_imx477_csi_out1: endpoint@3 {
+							status = "okay";
+						};
+					};
+				};
+			};
+		};
+	};
+	gpio@6000d000 {
+			/* gpio-name for 40-pin header, gpio-name given as COL(10) x ROW(20) */
+			gpio-line-names = "",   "",     "",     "",     "",     "",     "",     "",     "",     "",
+			"",     "",     "SPI1_MOSI",    "SPI1_MISO",    "SPI1_SCK",     "SPI1_CS0",     "SPI0_MOSI",    "SPI0_MISO",    "SPI0_SCK",     "SPI0_CS0",
+			"SPI0_CS1",     "",     "",     "",     "",     "",     "",     "",     "",     "",
+			"",     "",     "",     "",     "",     "",     "",     "",     "GPIO13",      "",
+			"",     "",     "",     "",     "",     "",     "",     "",     "",     "",
+			"UART1_RTS",    "UART1_CTS",    "",     "",     "",     "",     "",     "",     "",     "",
+			"",     "",     "",     "",     "",     "",     "",     "",     "",     "",
+			"",     "",     "",     "",     "",     "",     "I2S0_FS",    "I2S0_DIN",    "I2S0_DOUT",   "I2S0_SCLK",
+			"",     "",     "",     "",     "",     "",     "",     "",     "",     "",
+			"",     "",     "",     "",     "",     "",     "",     "",     "",     "",
+			"",     "",     "",     "",     "",     "",     "",     "",     "",     "",
+			"",     "",     "",     "",     "",     "",     "",     "",     "",     "",
+			"",     "",     "",     "",     "",     "",     "",     "",     "",     "",
+			"",     "",     "",     "",     "",     "",     "",     "",     "",     "",
+			"",     "",     "",     "",     "",     "",     "",     "",     "",     "GPIO01",
+			"",     "",     "",     "",     "",     "",     "",     "",     "",     "",
+			"",     "",     "",     "",     "",     "",     "",     "",     "GPIO07",   "",
+			"",     "",     "",     "",     "",     "",     "",     "",     "",     "",
+			"",     "",     "",     "",     "",     "",     "",     "",     "",     "",
+			"",     "",     "",     "",     "GPIO12",       "",     "",     "",     "",     "",
+			"GPIO11",      "",     "",     "",     "",     "",     "",     "",     "",     "",
+			"",     "",     "",     "",     "",     "",     "GPIO09",     "",     "",     "",
+			"",     "",     "",     "",     "",     "",     "",     "",     "",     "",
+			"",     "",     "SPI1_CS1",     "",     "",     "",     "",     "",     "",     "";
+	};
+};
