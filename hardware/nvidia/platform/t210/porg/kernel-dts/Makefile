@@ -34,6 +34,10 @@ dtbo-$(CONFIG_ARCH_TEGRA_210_SOC) += tegra210-p3448-common-imx219.dtbo
 dtbo-$(CONFIG_ARCH_TEGRA_210_SOC) += tegra210-p3448-all-p3449-0000-camera-imx219-dual.dtbo
 dtbo-$(CONFIG_ARCH_TEGRA_210_SOC) += tegra210-p3448-all-p3449-0000-camera-imx477-dual.dtbo
 dtbo-$(CONFIG_ARCH_TEGRA_210_SOC) += tegra210-p3448-all-p3449-0000-camera-imx477-imx219.dtbo
+dtb-$(CONFIG_ARCH_TEGRA_210_SOC) += tegra210-p3448-0002-dsboard-nx2-b00.dtb
+dtb-$(CONFIG_ARCH_TEGRA_210_SOC) += tegra210-p3448-0002-dsboard-nx2-b00-imx477.dtb
+dtb-$(CONFIG_ARCH_TEGRA_210_SOC) += tegra210-p3448-0002-dsboard-nx2-b00-rev121.dtb
+dtb-$(CONFIG_ARCH_TEGRA_210_SOC) += tegra210-p3448-0002-dsboard-nx2-b00-rev121-imx477.dtb
 
 ifneq ($(dtb-y),)
 dtb-y := $(addprefix $(makefile-path)/,$(dtb-y))
