@@ -24,11 +24,13 @@
 #include "porg-platforms/tegra210-porg-pinmux-p3448-0002-b00.dtsi"
 #include "porg-platforms/tegra210-porg-gpio-p3448-0002-b00.dtsi"
 #include "porg-platforms/tegra210-porg-p3448-emc-a00.dtsi"
+#include "tegra210-disable-debug-rx.dtsi"
+#include "tegra210-enable-spi.dtsi"
 
 #define FORECR_CAM_I2C_MUX TEGRA_GPIO(Z, 0) // GPIO11
 
 / {
-	model = "Jetson Nano for DSBOARD-NX2 (rev-1.21; 1.1 & 1.0)";
+	model = "Jetson Nano for DSBOARD-NX2";
 	compatible ="nvidia,p3449-0000-b00+p3448-0002-b00", "nvidia,jetson-nano", "nvidia,tegra210";
 	nvidia,dtsfilename = __FILE__;
 
@@ -48,10 +50,6 @@
 	};
 
 	spi@70410000 { /* QSPI */
-		status = "disabled";
-	};
-
-	pwm-fan {
 		status = "disabled";
 	};
 

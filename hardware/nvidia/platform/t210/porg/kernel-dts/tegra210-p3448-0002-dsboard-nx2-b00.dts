@@ -30,7 +30,7 @@
 #define FORECR_CAM_I2C_MUX TEGRA_GPIO(Z, 0) // GPIO11
 
 / {
-	model = "Jetson Nano for DSBOARD-NX2 (rev-1.22)";
+	model = "Jetson Nano for DSBOARD-NX2";
 	compatible ="nvidia,p3449-0000-b00+p3448-0002-b00", "nvidia,jetson-nano", "nvidia,tegra210";
 	nvidia,dtsfilename = __FILE__;
 
@@ -52,7 +52,7 @@
 	spi@70410000 { /* QSPI */
 		status = "disabled";
 	};
-	
+
 	hdr40_i2c1: i2c@7000c400 {
 		pcf8574a: gpio@38 {
 			compatible = "nxp,pcf8574a";
