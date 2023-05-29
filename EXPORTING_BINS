@@ -1,4 +1,4 @@
-# For DSBOARD_NX2 (rev-1.22) with Nano SoM, type these commands below:
+# For DSBOARD_NX2 (rev-1.23 & 1.22) with Nano SoM, type these commands below:
 mkdir $HOME/kernel_out_dsboard_nx2_nano_bsp
 cp $HOME/kernel_out_dsboard_nx2_nano/arch/arm64/boot/Image $HOME/kernel_out_dsboard_nx2_nano_bsp/Image
 cp $HOME/kernel_out_dsboard_nx2_nano/arch/arm64/boot/dts/tegra210-p3448-0002-dsboard-nx2-b00.dtb $HOME/kernel_out_dsboard_nx2_nano_bsp/tegra210-p3448-0002-p3449-0000-b00.dtb
