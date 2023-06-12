@@ -21,11 +21,10 @@
 #include "tegra210-porg-p3448-common.dtsi"
 #include "porg-platforms/tegra210-porg-camera-rbpcv3-dual-imx477.dtsi"
 //#include "porg-platforms/tegra210-porg-camera-rbpcv2-dual-imx219.dtsi"
-#include "porg-platforms/tegra210-porg-pinmux-p3448-0002-b00.dtsi"
-#include "porg-platforms/tegra210-porg-gpio-p3448-0002-b00.dtsi"
+#include "porg-platforms/tegra210-porg-pinmux-p3448-0002-b00-nx2.dtsi"
+#include "porg-platforms/tegra210-porg-gpio-p3448-0002-b00-nx2.dtsi"
 #include "porg-platforms/tegra210-porg-p3448-emc-a00.dtsi"
 #include "tegra210-disable-debug-rx.dtsi"
-#include "tegra210-enable-spi.dtsi"
 
 #define FORECR_CAM_I2C_MUX TEGRA_GPIO(Z, 0) // GPIO11
 
