@@ -168,6 +168,7 @@
 			};
 		};
 	};
+
 	gpio@6000d000 {
 			/* gpio-name for 40-pin header, gpio-name given as COL(10) x ROW(20) */
 			gpio-line-names = "",   "",     "",     "",     "",     "",     "",     "",     "",     "",
