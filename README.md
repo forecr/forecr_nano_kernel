@@ -3,6 +3,7 @@ Linux kernel source files for Jetson Nano based Forecr products
 
 ## Available JetPack Branches
 ### JetPack-4.x
+- [JetPack-4.6.6](https://github.com/forecr/forecr_nano_kernel/tree/Jetpack-4.6.6)
 - [JetPack-4.6.5](https://github.com/forecr/forecr_nano_kernel/tree/Jetpack-4.6.5)
 - [JetPack-4.6.4](https://github.com/forecr/forecr_nano_kernel/tree/JetPack-4.6.4)
 - [JetPack-4.6.3](https://github.com/forecr/forecr_nano_kernel/tree/Jetpack-4.6.3)
